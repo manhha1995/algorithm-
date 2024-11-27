@@ -1,5 +1,4 @@
 import java.util.HashSet;
-import java.util.StringTokenizer;
 
 public class SlideWindow {
     public int minimumSubArray(int[] arr, int n, int k) {
@@ -55,7 +54,7 @@ public class SlideWindow {
             set.add(arr[i -k + 1]);
         }
 
-        return maxSum; 
+        return maxSum;
     }
 
     public static int minimizeArrayValue(int[] nums) {
@@ -71,38 +70,9 @@ public class SlideWindow {
 
         return result;
     }
-    public static String largestPalindromic(String num) {
-        StringBuilder sb = new StringBuilder();
-        int[] count = new int[10];
-        for (char c : num.toCharArray()) {
-            count[c - '0']++;
-        }
-        for (int i = 9; i >= 0; i--) {
-            if (sb.length() == 0 && i == 0) {
-                continue;
-            }
-            while (count[i] > 1) {
-            sb.append(i);
-            count[i] -= 2;
-        }
-    }
-        if (sb.length() == 0) {
-        return "0";
-    }
-        for (int i = 9; i >= 0; i--) {
-            if (count[i] == 1) {
-                sb.append(i);
-                break;
-            }
-        }
-        for (int i = sb.length() - 2; i >= 0; i--) {
-            sb.append(sb.charAt(i));
-        }
-        return sb.toString();
-    }
 
 public static void main(String[] args) {
     String  a = "444947137";
-    System.out.println(largestPalindromic(a));
+    System.out.println(StringLeetCode.largestPalindromic(a));
     }
 }
