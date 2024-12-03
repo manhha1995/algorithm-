@@ -22,34 +22,16 @@ public class LinkedList {
 
     public void addAtHead(int val) {
         LinkedList node = null;
-        if (node == null) {
-            node = new LinkedList();
-            node.val = val;
-            node.node = null;
-        } else {
-            LinkedList newNode = new LinkedList();
-            newNode.val = val;
-            newNode.node = node;
-            node = newNode;
-        }
+        node = new LinkedList();
+        node.val = val;
+        node.node = null;
     }
 
     public void addAtTail(int val) {
         LinkedList node = null;
-        if (node == null) {
-            node = new LinkedList();
-            node.val = val;
-            node.node = null;
-        } else {
-            LinkedList current = node;
-            while (current.node != null) {
-                current = current.node;
-            }
-            LinkedList newNode = new LinkedList();
-            newNode.val = val;
-            newNode.node = null;
-            current.node = newNode;
-        }
+        node = new LinkedList();
+        node.val = val;
+        node.node = null;
     }
 
     public void addAtIndex(int index, int val) {
@@ -79,7 +61,8 @@ public class LinkedList {
     public void deleteAtIndex(int index) {
         LinkedList node = null;
         if (index == 0) {
-            node = node.node;
+            LinkedList newNode = new LinkedList();
+            node = newNode.node;
         } else {
             LinkedList current = node;
             int count = 0;

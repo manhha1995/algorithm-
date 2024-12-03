@@ -1,4 +1,6 @@
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ArrayLeetCode {
@@ -46,5 +48,70 @@ public class ArrayLeetCode {
             totalCandies += candies[i];
         }
         return totalCandies;
+    }
+
+    int maxNonIntersectingElems(int[] arr){
+        int maxIntersectincount = 0;
+        int intersectingcount = 0;
+        int prevSum = -1;
+        int count = 1;
+        Map<Integer, Integer> countSum = new HashMap<>();
+
+        for(int i=0; i<arr.length-1; i++){
+            if (checkOverNumber(arr[i], arr[i+1])) {
+                continue;
+            }
+            int sum = arr[i] + arr[i+1];
+           
+            if(sum != prevSum || count == 2) {
+                intersectingcount = getCount(sum, countSum);
+                maxIntersectincount = Math.max(maxIntersectincount, intersectingcount);
+                count = 1;
+            }else{
+                if(sum == prevSum){
+                    count = 2;
+                }
+            }
+            prevSum = sum;
+        }
+
+        return maxIntersectincount;
+    }
+
+    private boolean checkOverNumber(int a, int b) {
+        if (b > 0 && a > Integer.MAX_VALUE - b) return true; 
+        if (b < 0 && a < Integer.MIN_VALUE - b) return true;
+        return false;
+    }
+
+    private int getCount(int sum, Map<Integer, Integer> countSum) {
+        int val = countSum.get(sum) == null ? countSum.getOrDefault(sum, 1): countSum.get(sum)+1;
+        countSum.put(sum, val);
+        return val;
+    }
+
+    public int maxDistance(int[] X, int[] Y) {
+        if (X.length == 0 || Y.length == 0 || X.length <2 || X.length != Y.length) {
+            return 0;
+        }
+        int n = X.length;
+        int max = 0;
+       for (int i = 0; i < n; i++) {
+            int current = X[i];
+            for (int j = i + 1; j < n; j++) {
+                if (X[j] == current) {
+                    max = Math.max(max, Math.abs(Y[j] - Y[i]));
+                }
+            }
+       }
+
+       return max;
+    }
+
+    public static void main(String[] args) {
+        int A[] = {1,5,2,4,3,3};
+
+        ArrayLeetCode arrayLeetCode = new ArrayLeetCode();
+        System.out.println(arrayLeetCode.maxNonIntersectingElems(A));
     }
 }
