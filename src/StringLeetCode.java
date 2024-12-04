@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 public class StringLeetCode {
     public static String largestPalindromic(String num) {
         StringBuilder sb = new StringBuilder();
@@ -92,4 +95,43 @@ public class StringLeetCode {
         }
     }
 
+    public String addSpaces(String s, int[] spaces) {
+        int n = s.length();
+        StringBuilder sb = new StringBuilder();
+        int c = 0;
+        for (int i = 0; i < n; i++) {
+           if (c < spaces.length && i == spaces[c]) {
+              sb.append(" ");
+              c++;
+            }
+            sb.append(s.charAt(i));
+        }
+        return sb.toString();
+    }
+
+     public String firstPalindrome(String[] words) {
+        StringBuilder sb = new StringBuilder();
+        int n = words.length;
+        for (int i = 0; i < n; i++) {
+            sb = new StringBuilder(words[i]);
+            if (sb.reverse().toString().equals(words[i])) {
+                return words[i];
+            }
+        }
+        return "";
+    }
+
+    public boolean asteroidsDestroyed(int mass, int[] asteroids) {
+        Arrays.sort(asteroids);
+        for (int i : asteroids) {
+                if (mass < i) {
+                   return false;
+                } else {
+                   mass += i;
+                }
+        } 
+
+       return true;
+    }
+    
 }
