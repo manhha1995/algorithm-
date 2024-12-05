@@ -1,6 +1,4 @@
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 public class StringLeetCode {
     public static String largestPalindromic(String num) {
         StringBuilder sb = new StringBuilder();
@@ -132,6 +130,28 @@ public class StringLeetCode {
         } 
 
        return true;
+    }
+
+    public boolean canMakeSubsequence(String str1, String str2) {
+        if (str1.isEmpty() || str2.isEmpty() || str1.length() < str2.length()) {
+            return false;
+        }
+
+        char[] c = str1.toCharArray();
+        int start = 0;
+        for (int i = 0; i < c.length  && start < str2.length(); i++) {
+            if (c[i] == str2.charAt(start) || (c[i] + 1) == str2.charAt(start)&& str1.charAt(i) != 'z' || str2.charAt(start) == 'a' && str1.charAt(i) == 'z') {
+                start++;
+            }
+        }
+        return start == str2.length();
+    }
+
+    public static void main(String[] args) {
+        String str1 = "p";
+        String str2 = "a";
+        StringLeetCode stringLeetCode = new StringLeetCode();
+        System.out.println(stringLeetCode.canMakeSubsequence(str1, str2));
     }
     
 }
