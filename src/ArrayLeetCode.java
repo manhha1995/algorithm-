@@ -1,7 +1,9 @@
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.Collections;
 
 public class ArrayLeetCode {
     public static boolean findSubarrays(int[] nums) {
@@ -108,10 +110,71 @@ public class ArrayLeetCode {
        return max;
     }
 
+    public int maxSum(int[] nums) {
+        Map<Integer, PriorityQueue<Integer>> digitMap = new HashMap<>();
+    
+        // Group numbers by their largest digit
+        for (int num : nums) {
+            int maxDigit = digitSum(num);
+            digitMap.computeIfAbsent(maxDigit, k -> new PriorityQueue<>(Collections.reverseOrder())).add(num);
+        }
+    
+        int maxSum = -1;
+    
+        // Find maximum sum for each group of numbers
+        for (PriorityQueue<Integer> numbers : digitMap.values()) {
+            if (numbers.size() >= 2) {
+                // Sort in descending order to get largest numbers first
+            int first = numbers.poll();
+            int second = numbers.poll();
+            maxSum = Math.max(maxSum, first + second);
+            }
+        }
+        
+        return maxSum;
+
+    }
+    public int digitSum(int digit) {
+        int maxDigit = 0;
+        while (digit > 0) {
+            maxDigit = Math.max(maxDigit, digit % 10);
+            digit = digit / 10;
+        }
+        return maxDigit;
+    }
+
+    public int[] numberOfPairs(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        int pairs = 0;
+        int leftover = 0;
+        
+        // Calculate pairs and leftover numbers
+        for (int count : map.values()) {
+            pairs += count / 2;      // Number of pairs that can be formed
+            leftover += count % 2;   // Numbers that can't form pairs
+        }
+    
+        return new int[]{pairs, leftover};
+    }
+
+    public int fillCups(int[] amount) {
+        int max = 0;
+        int sum = 0;
+        for (int i = 0; i < amount.length; i++) {
+            max = Math.max(max, amount[i]);
+            sum += amount[i];
+        }
+        return Math.max(max, (sum + 1) / 2);
+    }
+
     public static void main(String[] args) {
-        int A[] = {1,5,2,4,3,3};
+        int A[] = {2536,1613,3366,162};
 
         ArrayLeetCode arrayLeetCode = new ArrayLeetCode();
-        System.out.println(arrayLeetCode.maxNonIntersectingElems(A));
+        System.out.println(arrayLeetCode.maxSum(A));
     }
 }
