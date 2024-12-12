@@ -152,9 +152,22 @@ public class Greedy {
         return count;
     }
 
+    public int coinChange(int[] coins, int amount) {
+        int n = coins.length;
+        int numsCoins = 0; 
+        for (int i = n -1; i >= 0; i--) {
+            if (coins[i] <= amount) {
+                amount -= coins[i];
+                numsCoins++;
+            }
+        }
+
+        return numsCoins;
+    }
+
     public static void main(String[] args) {
-        int[][] arr = new int[][]{{1,100}, {11,22}, {1,11}, {2,12}};
+       int[] coins = new int[] {2};
                 Greedy greedy = new Greedy();   
-        System.out.println(greedy.eraseOverlapIntervals(arr));
+        System.out.println(greedy.coinChange(coins, 3));
     }
 }
