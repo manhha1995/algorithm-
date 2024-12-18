@@ -1,4 +1,7 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.HashMap;
 public class StringLeetCode {
     public static String largestPalindromic(String num) {
         StringBuilder sb = new StringBuilder();
@@ -145,6 +148,38 @@ public class StringLeetCode {
             }
         }
         return start == str2.length();
+    }
+
+    public int longestPalindrome(String s) {
+       Set<String> set = new HashSet<>();
+       int n = s.length();
+       int count = 0; 
+       for (int i = 0; i < n; i++) {
+           String c = String.valueOf(s.charAt(i));
+           if (set.contains(c)) {
+               set.remove(c);
+               count += 2;
+           } else {
+               set.add(c);
+           }
+       }
+       return set.isEmpty() ? count : count + 1;
+    }
+
+    public int arrayPairSum(int[] nums) {
+       // Sort the array first
+        Arrays.sort(nums);
+        
+        // Initialize sum
+        int sum = 0;
+        
+        // Take every element at even indices
+        for (int i = 0; i < nums.length; i += 2) {
+            sum += nums[i];
+        }
+        
+        return sum;
+            
     }
 
     public static void main(String[] args) {
